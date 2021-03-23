@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import Food from '../../components/Food';
 import Header from '../../components/Header';
 import ModalAddFood from '../../components/ModalAddFood';
@@ -7,7 +6,6 @@ import ModalEditFood from '../../components/ModalEditFood';
 import api from '../../services/api';
 import { IFood } from '../../types';
 import { FoodsContainer } from './styles';
-
 
 function Dashboard () {
   const [foods, setFoods] = useState<IFood[]>([]);
@@ -30,11 +28,9 @@ function Dashboard () {
         ...food,
         available: true,
       });
-
-      toast.success('Comida adicionada com sucesso.');
       setFoods([...foods, response.data]);
     } catch {
-      toast.error('Erro na adição de uma nova comida.');
+      console.log('Erro na adição de uma nova comida.');
     }
   }
 
@@ -49,10 +45,10 @@ function Dashboard () {
         food.id !== foodUpdated.data.id ? food : foodUpdated.data,
       );
 
-      toast.success('Comida atualizada com sucesso.');
+      console.log('Comida atualizada com sucesso.');
       setFoods(foodsUpdated);
     } catch {
-      toast.error('Erro na atualização de uma nova comida.');
+      console.log('Erro na atualização de uma nova comida.');
     }
   }
 
@@ -61,9 +57,9 @@ function Dashboard () {
       await api.delete(`/foods/${id}`);
       const foodsFiltered = foods.filter(food => food.id !== id);
       setFoods(foodsFiltered);
-      toast.success('Comida removida com sucesso.');
+      console.log('Comida removida com sucesso.');
     } catch {
-      toast.error('Erro ao tentar remover a comida.');
+      console.log('Erro ao tentar remover a comida.');
     }
   }
 
